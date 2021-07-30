@@ -1,11 +1,11 @@
 
-version = 'cmip6';
 l = 400*12;
         
 load('cmip6_piControl_detrends_indices.mat')
 load('cmip6_piControl_detrend_Global_Ocean_SST_Monthly_cutoff_120_neofs_65_rotated.mat')
 
-LLFC = LFCs(:,65);
+% LLFC = LFCs(:,65);
+% LLFP = LFPs(end,:);
 GMTOA = -GMTOA;
 rlut_global = -rlut_global;
 rsut_global = -rsut_global;
@@ -176,22 +176,22 @@ TOAg_rmean_max(7) = max(xcov_mean);
 
 %% LFC END
 
-plot_field_div(LON_AXIS,LAT_AXIS,reshape(LFPs(end,:),[180 87]),linspace(-1.2,1.2,25)); topo_1deg_0; set(gca,'xlim',[0 358]); set(gca,'ylim',[-86 86])
+plot_field_div(LON_AXIS,LAT_AXIS,reshape(LLFP,[180 87]),linspace(-1.2,1.2,25)); topo_1deg_0; set(gca,'xlim',[0 358]); set(gca,'ylim',[-86 86])
 hc = colorbar; set(hc,'ytick',-1.2:0.6:1.2); set(hc,'yticklabel',{'-1.2','-0.6','0','0.6','1.2°C'})
 
-seasonal_crosscov(GMST,LFCs(:,end),10,linspace(-0.2,0.2,25),1:12);
+seasonal_crosscov(GMST,LLFC,10,linspace(-0.2,0.2,25),1:12);
 pretty_figure(400,250,'Lag (yr)','Global Mean Temperature','none','none',16)
 set(gca,'ytick',-0.1:0.02:0.1); set(gca,'ygrid','on'); set(gca,'xgrid','on');
 set(gca,'ylim',[-0.06 0.06])
-[~,xcov_mean] = seasonal_crosscov(rmean(GMST,120),LFCs(60:end-60,end),10,linspace(-0.2,0.2,25),1:12,1);
+[~,xcov_mean] = seasonal_crosscov(rmean(GMST,120),LLFC(60:end-60),10,linspace(-0.2,0.2,25),1:12,1);
 hold on; plot(120:-1:-120,xcov_mean,'k','linewidth',1)
 Tg_rmean_max(8) = max(xcov_mean);
 
-seasonal_crosscov(GMTOA,LFCs(:,end),10,linspace(-0.2,0.2,25),1:12);
+seasonal_crosscov(GMTOA,LLFC,10,linspace(-0.2,0.2,25),1:12);
 pretty_figure(400,250,'Lag (yr)','Global Mean TOA Imbalance (W m^{-2})','none','none',16)
 set(gca,'ylim',[-0.2 0.2])
 set(gca,'ytick',-0.2:0.05:0.2); set(gca,'ygrid','on'); set(gca,'xgrid','on');
-[~,xcov_mean] = seasonal_crosscov(rmean(GMTOA,120),LFCs(60:end-60,end),10,linspace(-0.2,0.2,25),1:12,1);
+[~,xcov_mean] = seasonal_crosscov(rmean(GMTOA,120),LLFC(60:end-60),10,linspace(-0.2,0.2,25),1:12,1);
 hold on; plot(120:-1:-120,xcov_mean,'k','linewidth',1)
 TOAg_rmean_max(8) = max(xcov_mean);
 
@@ -257,7 +257,7 @@ for i = 1:length(models)
     P_avg_5 = P_avg_5+P./length(models);
     [P,s,ci] = pmtmPH(LFCsr(is,6),1/12,3,0);
     P_avg_6 = P_avg_6+P./length(models);
-    [P,s,ci] = pmtmPH(LFCs(is,end),1/12,3,0);
+    [P,s,ci] = pmtmPH(LLFC(is),1/12,3,0);
     P_avg_65 = P_avg_65+P./length(models);
     [P,s,ci] = pmtmPH(nino34(is),1/12,3,0);
     P_avg_ENSO = P_avg_ENSO+P./length(models);
@@ -383,10 +383,10 @@ for k = ks
             x = LFCsr(:,6);
             y = GMTOA;
         case 13
-            x = LFCs(:,65);
+            x = LLFC;
             y = GMST;
         case 14
-            x = LFCs(:,65);
+            x = LLFC;
             y = GMTOA;
         case 15
             x = nino34;
@@ -538,7 +538,7 @@ for n = 1:5
         if n == 4
             LFC = nino34(is)./std(nino34(is));
         elseif n == 5
-            LFC = LFCs(is,65)./std(LFCs(is,65));
+            LFC = LLFC(is)./std(LLFC(is));
         else
             LFC = LFCsr(is,n)./std(LFCsr(is,n));  % normalized
         end
@@ -605,7 +605,7 @@ for n = 1:5
         if n == 4
             LFC = nino34(is)./std(nino34(is));
         elseif n == 5
-            LFC = LFCs(is,65)./std(LFCs(is,65));
+            LFC = LLFC(is)./std(LLFC(is));
         else
             LFC = LFCsr(is,n)./std(LFCsr(is,n));  % normalized
         end
