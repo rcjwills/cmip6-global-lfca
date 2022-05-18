@@ -1,4 +1,4 @@
-load('cmip6_picontrol_3monthly_sst_all.mat') % dowload from https://atmos.uw.edu/~rcwills/data/cmip6_picontrol_3monthly_sst_all.mat
+load('cmip6_picontrol_3monthly_sst_all.mat') % download from https://atmos.uw.edu/~rcwills/data/cmip6_picontrol_3monthly_sst_all.mat
 nlon = size(cmip6_picontrol_3monthly_sst,1);
 nlat = size(cmip6_picontrol_3monthly_sst,2);
 n = size(cmip6_picontrol_3monthly_sst,3); 
