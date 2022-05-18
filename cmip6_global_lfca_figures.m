@@ -1,8 +1,8 @@
 
 l = 400*12;
         
-load('cmip6_piControl_detrends_indices.mat')
-load('cmip6_piControl_detrend_Global_Ocean_SST_Monthly_cutoff_120_neofs_65_rotated.mat')
+load('cmip6_piControl_detrend_indices.mat')
+load('cmip6_piControl_detrend_Global_Ocean_SST_Monthly_cutoff_120_neofs_65_rotated_corrigendum.mat')
 
 % LLFC = LFCs(:,65);
 % LLFP = LFPs(end,:);
@@ -21,7 +21,7 @@ hc = colorbar; set(hc,'ytick',-0.8:0.4:0.8); set(hc,'yticklabel',{'-0.8','-0.4',
 seasonal_crosscov(GMST,LFCsr(:,1),nyr,linspace(-0.2,0.2,25),1:12);
 pretty_figure(400,250,'Lag (yr)','Global Mean Temperature','none','none',16)
 set(gca,'ytick',-0.01:0.01:0.05); set(gca,'ygrid','on'); set(gca,'xgrid','on');
-set(gca,'ylim',[0 0.06])
+set(gca,'ylim',[0 0.07])
 [~,xcov_mean] = seasonal_crosscov(rmean(GMST,120),LFCsr(60:end-60,1),20,linspace(-0.2,0.2,25),1:12,1);
 hold on; plot(240:-1:-240,xcov_mean,'k','linewidth',1)
 Tg_rmean_max(1) = max(xcov_mean);
@@ -474,7 +474,7 @@ for i = is
     if i >= 3
         set(gca,'xtick',-2400:60:2400); set(gca,'xticklabel',-200:5:200);
         set(gca,'xlim',[-12*10 12*10])
-        set(gca,'ylim',[-0.05 0.1])
+        set(gca,'ylim',[-0.06 0.03])
     else
         set(gca,'xtick',-2400:120:2400); set(gca,'xticklabel',-200:10:200);
         set(gca,'xlim',[-12*20 12*20])
@@ -502,7 +502,7 @@ end
 figure; plot(72:-1:-72,xcov_mean,'color',[0.85,0.33,0.10],'linewidth',1.5)
 pretty_figure(450,250,'Lag (yr)','Global Energy Fluxes (W m^{-2})','none','none',16)
 set(gca,'ytick',-0.2:0.1:0.3); set(gca,'ygrid','on'); set(gca,'xgrid','on');
-set(gca,'ylim',[-0.2 0.3])
+set(gca,'ylim',[-0.24 0.16])
 set(gca,'xtick',-120:12:120); set(gca,'xticklabel',-10:1:10);
 set(gca,'xlim',[-12*4 12*4]);
 [~,xcov_mean] = seasonal_crosscov(rsut_global,nino34,6,linspace(-0.2,0.2,25),1:12,1);
@@ -555,7 +555,7 @@ for n = 1:5
     end
     
     if n <= 2
-        set(gca,'xlim',[-0.025 0.325]);
+        set(gca,'xlim',[-0.05 0.35]);
     elseif n == 4 && ENSO_rmean_width == 24
         set(gca,'ylim',[-0.5 0.1]); set(gca,'xlim',[0 0.16])
     elseif n == 4 && ENSO_rmean_width == 120
@@ -624,9 +624,9 @@ for n = 1:5
     end
     
     if n <= 2
-       set(gca,'ylim',[-0.08 0.02]); set(gca,'xlim',[-0.0125 0.0225])
+       set(gca,'ylim',[-0.1 0.01]); set(gca,'xlim',[-0.0125 0.0225])
     elseif n == 3
-        set(gca,'ylim',[-0.04 0.04]); set(gca,'xlim',[-0.05 0.01])
+        set(gca,'ylim',[-0.04 0.04]); set(gca,'xlim',[-0.05 0])
     elseif n == 4 && ENSO_rmean_width == 24
         set(gca,'ylim',[-0.5 0.1]); set(gca,'xlim',[0 0.16])
     elseif n == 4 && ENSO_rmean_width == 120
