@@ -8,7 +8,7 @@ ne = size(cmip6_picontrol_3monthly_sst,4);
 % interpolated to the current ~4° resolution and the climatological
 % seasonal cycle has been removed from each simulation, such that these 
 % data are 3-month average anomalies from the JFM, AMJ, JAS, and OND means. 
-% The data have also been linearly detrended over the 400 years of each
+% The data have also been quadratically detrended over the 400 years of each
 % simulation to remove drift in the piControl runs. 
 
 %% Parameters
